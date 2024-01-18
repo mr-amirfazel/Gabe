@@ -1,4 +1,2 @@
 *.yml
 *.env
-Auth-service/.env
-/Auth-service/.env
