@@ -16,6 +16,7 @@ import (
 
 
 func Register(c echo.Context) error {
+	// TODO: add validation for register information (username checking and etc.)
 	// Parse request body
 	var newUser models.User
 	if err := c.Bind(&newUser); err != nil {
