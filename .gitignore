@@ -1,2 +1,2 @@
-*/configs
-./Auth-service/.env
+*.yml
+*.env
