@@ -8,11 +8,10 @@ import (
 	// "io/ioutil"
 	"net/http"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
 	"github.com/mr-amirfazel/gabe/internal/db"
 	"github.com/mr-amirfazel/gabe/internal/models"
+	"github.com/mr-amirfazel/gabe/internal/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -98,7 +97,7 @@ func Login(c echo.Context) error {
 		}
 	
 		// Generate JWT token
-		token := generateJWTToken(storedUser.ID)
+		token := utils.GenerateJWTToken(storedUser.ID)
 	
 		// Set token in response header or cookie as needed
 		c.Response().Header().Set("Authorization", "Bearer "+token)
@@ -113,23 +112,4 @@ func Login(c echo.Context) error {
 
 	}
 	
-	// generateJWTToken generates a JWT token for the user ID
-func generateJWTToken(userID int) string {
-		// Your secret key for signing the token
-		secretKey := "2x_Pud8W1ODk4qIffFlE0U8awL-pce3OiT-c2OTWYp0"
-	
-		// Create the token
-		token := jwt.New(jwt.SigningMethodHS256)
-		claims := token.Claims.(jwt.MapClaims)
-		claims["id"] = userID
-		claims["exp"] = time.Now().Add(time.Hour * 24).Unix() // Example: Token expires in 24 hours
-	
-		// Sign the token with your secret key
-		tokenString, err := token.SignedString([]byte(secretKey))
-		if err != nil {
-			// Handle error (e.g., log it)
-			return ""
-		}
-	
-		return tokenString
-}
+
