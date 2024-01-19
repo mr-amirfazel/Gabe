@@ -2,7 +2,10 @@ package handlers
 
 import (
 	"context"
+	"io"
+	"encoding/base64"
 	"fmt"
+	// "io/ioutil"
 	"net/http"
 	"time"
 
@@ -18,25 +21,51 @@ import (
 func Register(c echo.Context) error {
 	// TODO: add validation for register information (username checking and etc.)
 	// Parse request body
-	var newUser models.User
-	if err := c.Bind(&newUser); err != nil {
+	var newUserDTO models.UserDTO
+	if err := c.Bind(&newUserDTO); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request body"})
 	}
 
+	fmt.Println("dto; ",newUserDTO)
+
 	// Hash the password
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newUser.Password), bcrypt.DefaultCost)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newUserDTO.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Internal server error in hashing"})
 	}
 
-	// Store the user in the database
-	newUser.Password = string(hashedPassword)
-	// client := db.GetClient()
-	collection := db.GetDB().Collection("users")
+	imageDTo, err := c.FormFile("image")
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Broken Image"})
+	}
+
+	file, err := imageDTo.Open()
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Couldnt open file"})
+	}
+	defer file.Close()
+
+	imageBytes, err := io.ReadAll(file)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Failed to read image file"})
+	}
+	imageBase64 := base64.StdEncoding.EncodeToString(imageBytes)
 	
-	// fmt.Println("collection: ", collection.Name())
-	fmt.Println("collection: ", collection)
-	fmt.Println("new user: ", newUser)
+	fmt.Println("imagebase64: ", "sd")
+
+	newUser := models.User{
+		FirstName: newUserDTO.FirstName,
+		LastName:  newUserDTO.LastName,
+		Phone:     newUserDTO.Phone,
+		Username:  newUserDTO.Username,
+		Password:  string(hashedPassword),
+		Image:     imageBase64,
+		Bio:       newUserDTO.Bio,
+	}
+
+	fmt.Println("newUserTobeSaved: ", newUser)
+
+	collection := db.GetDB().Collection("users")
 	
 	_, err = collection.InsertOne(context.TODO(), newUser)
     if err != nil {
@@ -82,13 +111,12 @@ func Login(c echo.Context) error {
 	
 		return c.JSON(http.StatusOK, map[string]string{"message": "Login successful"})
 
-		return nil
 	}
 	
 	// generateJWTToken generates a JWT token for the user ID
 func generateJWTToken(userID int) string {
 		// Your secret key for signing the token
-		secretKey := "your-secret-key"
+		secretKey := "2x_Pud8W1ODk4qIffFlE0U8awL-pce3OiT-c2OTWYp0"
 	
 		// Create the token
 		token := jwt.New(jwt.SigningMethodHS256)
