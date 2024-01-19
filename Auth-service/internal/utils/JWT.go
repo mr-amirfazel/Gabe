@@ -6,7 +6,7 @@ import (
 )
 
 	// generateJWTToken generates a JWT token for the user ID
-func GenerateJWTToken(userID int) string {
+func GenerateJWTToken(userID int64) string {
 	// Your secret key for signing the token
 	secretKey := "2x_Pud8W1ODk4qIffFlE0U8awL-pce3OiT-c2OTWYp0"
 	

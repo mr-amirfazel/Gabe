@@ -14,6 +14,7 @@ import (
 	"github.com/mr-amirfazel/gabe/internal/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/bwmarrin/snowflake"
 )
 
 
@@ -52,7 +53,17 @@ func Register(c echo.Context) error {
 	
 	fmt.Println("imagebase64: ", "sd")
 
+	node, err := snowflake.NewNode(1)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Generate a snowflake ID.
+	id := node.Generate()
+
+
 	newUser := models.User{
+		ID: id.Int64(),
 		FirstName: newUserDTO.FirstName,
 		LastName:  newUserDTO.LastName,
 		Phone:     newUserDTO.Phone,
