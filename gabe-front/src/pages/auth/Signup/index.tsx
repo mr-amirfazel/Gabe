@@ -25,7 +25,7 @@ export const Signup:FC = () => {
             <input
               type="text"
               id="firstname"
-              {...register('firstname', { required: "firstname is required" , maxLength: 50})}
+              {...register('first_name', { required: "firstname is required" , maxLength: 50})}
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="First Name"
             />
@@ -37,7 +37,7 @@ export const Signup:FC = () => {
             <input
               type="text"
               id="lastname"
-              {...register('lastname', { required: true , maxLength: 50})}
+              {...register('last_name', { required: true , maxLength: 50})}
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Last Name"
             />
