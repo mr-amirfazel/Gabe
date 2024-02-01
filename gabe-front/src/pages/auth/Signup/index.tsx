@@ -2,13 +2,16 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import './index.css'
+import { AXIOS } from "../../../config/axios.config";
 
 export const Signup:FC = () => {
         const { register, handleSubmit } = useForm();
 
   const onSubmit = (data: unknown) => {
-    // Handle form submission with the data
-    console.log(data);
+    
+    AXIOS.post("/register", data).then(data => {
+        console.log(data);
+    })
   };
 
   return (
@@ -22,7 +25,7 @@ export const Signup:FC = () => {
             <input
               type="text"
               id="firstname"
-              {...register('firstname', { required: true })}
+              {...register('firstname', { required: "firstname is required" , maxLength: 50})}
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="First Name"
             />
@@ -34,7 +37,7 @@ export const Signup:FC = () => {
             <input
               type="text"
               id="lastname"
-              {...register('lastname', { required: true })}
+              {...register('lastname', { required: true , maxLength: 50})}
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Last Name"
             />
@@ -47,7 +50,7 @@ export const Signup:FC = () => {
             <input
               type="text"
               id="phone"
-              {...register('phone', { required: true })}
+              {...register('phone', { required: true , maxLength: 20})}
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Phone"
             />
