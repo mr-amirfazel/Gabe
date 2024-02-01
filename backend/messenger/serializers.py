@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from messenger.models import Contact, Chat
+from messenger.models import Contact, Chat, ChatMembership
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -13,15 +13,14 @@ class ContactSerializer(serializers.ModelSerializer):
 class ChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
-        fields = ('id', 'created_at')
-        read_only_fields = ['id']
+        fields = ('id', 'name', 'created_at')
+        read_only_fields = ['id', 'created_at']
 
-
-class ChatMembershipSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chat
-        fields = ('id', 'chat_id', 'user_id')
-        read_only_fields = ['id']
+    def create(self, validated_data):
+        chat = super().create(validated_data)
+        chat_membership = ChatMembership.objects.create(chat_id=chat, user_id=self.context['request'].user)
+        chat_membership.save()
+        return chat
 
 
 class MessageSerializer(serializers.ModelSerializer):

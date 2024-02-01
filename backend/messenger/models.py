@@ -12,6 +12,7 @@ class Contact(models.Model):
 
 class Chat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=50, null=False, blank=True)
 
 
 class ChatMembership(models.Model):

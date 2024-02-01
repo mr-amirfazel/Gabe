@@ -1,8 +1,9 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-from messenger.models import Contact, Chat
+from messenger.models import Contact, Chat, ChatMembership
 from messenger.serializers import ContactSerializer, ChatSerializer
 
 
@@ -36,9 +37,21 @@ class ChatViewSet(viewsets.GenericViewSet,
                   mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.DestroyModelMixin):
-    queryset = Chat.objects.all()  # TODO: override queryset based on user
+    permission_classes = [IsAuthenticated]
     serializer_class = ChatSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        self.lookup_url_kwarg = 'chat_id'
+        return super().destroy(request, args, kwargs)
 
     @action(methods=['delete'], detail=False)
     def delete_message(self, request):
-        pass
+        try:
+            chat = self.get_queryset().get(pk=request.data['chat_id'])
+        except Chat.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        chat.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get_queryset(self):
+        return Chat.objects.filter(pk__in=ChatMembership.objects.filter(user_id=self.request.user).values('chat_id'))
