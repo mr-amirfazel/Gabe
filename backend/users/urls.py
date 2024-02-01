@@ -8,7 +8,7 @@ from users.views import UserViewSet
 
 user_routes = [
     # TODO: add login
-    path('register/', UserViewSet.as_view({
+    path('register', UserViewSet.as_view({
         'post': 'create'
     })),
     path('users/', UserViewSet.as_view({
