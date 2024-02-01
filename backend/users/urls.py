@@ -4,14 +4,14 @@ from users.views import UserViewSet
 
 user_routes = [
     # TODO: add login
-    path('register', UserViewSet.as_view({
+    path('register/', UserViewSet.as_view({
         'post': 'create'
     })),
     path('users/', UserViewSet.as_view({
         'get': 'search',
-        'post': 'create'
+        'post': 'login'
     })),
-    path(r'users/<int:pk>/', UserViewSet.as_view({
+    path(r'users/<int:user_id>/', UserViewSet.as_view({
         'get': 'retrieve',
         'patch': 'update',
         'delete': 'destroy'
