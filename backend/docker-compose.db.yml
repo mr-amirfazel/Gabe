@@ -1,0 +1,17 @@
+version: '2.2'
+
+services:
+  db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_USER: messenger
+      POSTGRES_PASSWORD: db_password
+      POSTGRES_DB: messenger_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+
+volumes:
+  pg_data:
