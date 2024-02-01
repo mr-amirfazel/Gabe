@@ -3,11 +3,11 @@ from django.urls import path, include
 from messenger.views import ContactViewSet, ChatViewSet
 
 contact_routes = [
-    path('users/<int:user_id>/contacts/', ContactViewSet.as_view({
+    path('contacts/', ContactViewSet.as_view({
         'get': 'list',
         'post': 'create'
     })),
-    path(r'users/<int:user_id>/contacts/<int:contact_id>/', ContactViewSet.as_view({
+    path(r'contacts/<int:contact_id>/', ContactViewSet.as_view({
         'delete': 'destroy'
     })),
 ]
