@@ -1,6 +1,8 @@
 
 import { FC } from 'react';
 import { Navbar } from '../Navbar';
+import { Sidebar } from '../Sidebar';
+import { Main } from '../Main';
 
 export const MessangerLayout:FC = () => {
     return (
@@ -10,10 +12,10 @@ export const MessangerLayout:FC = () => {
         <div className="flex-none w-1/12 h-[99%]"> <Navbar /></div>
         
         {/* Second Column with colspan 3 */}
-        <div className="flex-none w-3/12 bg-white p-4 h-[99%]">Column 2 (Colspan 3)</div>
+        <div className="flex-none w-3/12  h-[99%]"><Sidebar /></div>
         
         {/* Third Column with colspan 8 */}
-        <div className="flex-grow bg-white p-4 h-[99%]">Column 3 (Colspan 8)</div>
+        <div className="flex-grow h-[99%]"><Main /></div>
       </div>
     </div>
       ); 

@@ -1,11 +1,14 @@
 import './App.css'
+import { AppContextProvider } from './context/store'
 import { Routing } from './routing/routing'
 
 function App() {
 
   return (
     <>
-      <Routing />
+      <AppContextProvider>
+        <Routing />
+      </AppContextProvider>
     </>
   )
 }

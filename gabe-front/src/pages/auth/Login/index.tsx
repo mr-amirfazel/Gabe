@@ -1,6 +1,10 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { AXIOS } from "../../../config/axios.config";
+import { AppContext } from "../../../context/store";
+import { UserActionTypes } from "../../../@types/context/context.types";
 
 interface LoginFormValues {
   username: string;
@@ -10,11 +14,36 @@ interface LoginFormValues {
 export const Login: FC = () => {
   const { register, handleSubmit , formState: { errors } } = useForm<LoginFormValues>();
 
+  const {
+    state: { user },
+    dispatch,
+  } = useContext(AppContext);
+  const navigation = useNavigate();
+
   const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     // Handle form submission with the data
     console.log(errors);
     
     console.log(data);
+
+    AXIOS.post('/login', data).then(result =>{
+        dispatch({
+          type: UserActionTypes.Login_Success,
+          payload: {
+            refresh: result.data.refresh,
+            access: result.data.access,
+            username: data.username
+          }
+        })
+
+        AXIOS.defaults.headers.common.Authorization =
+        "Bearer " + result.data.access;
+      navigation("/");
+
+      localStorage.setItem("access", result.data.access)
+      localStorage.setItem("refresh", result.data.refresh)
+      
+    })
     
   };
 
