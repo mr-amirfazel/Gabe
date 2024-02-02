@@ -25,7 +25,7 @@ class ChatMembership(models.Model):
 
 class Message(models.Model):
     chat_id = models.ForeignKey('messenger.Chat', on_delete=models.CASCADE)
-    sender_id = models.ForeignKey('users.User', on_delete=models.SET_NULL, related_name='sender_id')
-    receiver_id = models.ForeignKey('users.User', on_delete=models.SET_NULL, related_name='receiver_id')
+    sender_id = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='sender_id')
+    receiver_id = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='receiver_id')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

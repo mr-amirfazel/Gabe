@@ -5,3 +5,4 @@ Pillow==10.2.0
 djangorestframework-simplejwt==5.3.1
 channels==4.0.0
 django-cors-headers==4.3.1
+prometheus-client==0.19.0
