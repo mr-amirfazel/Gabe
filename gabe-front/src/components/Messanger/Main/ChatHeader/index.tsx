@@ -3,7 +3,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { AppContext } from "../../../../context/store";
 import { MessageActionTypes } from "../../../../@types/context/context.types";
 interface ChatHeaderProps extends React.PropsWithChildren {}
-export const ChatHeader: React.FunctionComponent<ChatHeaderProps> = (props) => {
+export const ChatHeader: React.FunctionComponent<ChatHeaderProps> = () => {
   const { dispatch } = useContext(AppContext);
   const handleExitRoom = () => {
     dispatch({
