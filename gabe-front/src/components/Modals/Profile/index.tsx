@@ -28,7 +28,7 @@ export const Profile:FC<ProfileProps> =({onClose}) => {
         }
       })
 
-    const updateUserData = (data : any) => {
+    const updateUserData = (data: any) => {
         console.log(data);
         
 
@@ -51,6 +51,7 @@ export const Profile:FC<ProfileProps> =({onClose}) => {
     <div className="backdrop w-full flex justify-center items-center" onClick={onClose}>
         <div className="w-1/2 rounded-lg pb-2 text-black modal translate-x-60 flex flex-col justify-center items-center bg-blue-400" onClick={(e)=> {e.stopPropagation()}}>
         <h2 className="bg-white w-full h-7 text-black text-center font-bold">Profile</h2>
+        <form onSubmit={handleSubmit(updateUserData)}>
         <div className="flex gap-2">
           <div className="mb-2">
             <label htmlFor="firstname" className="block text-sm font-medium">
@@ -116,9 +117,10 @@ export const Profile:FC<ProfileProps> =({onClose}) => {
             />
           </div>
           <div className="flex gap-3">
-            <Button variant="contained" onClick={() => handleSubmit(updateUserData)}>Update</Button>
+            <button type="submit">Update</button>
             <Button variant="contained" onClick={onClose}>Cancel</Button>
           </div>
+          </form>
         </div>
 
     </div>
