@@ -13,5 +13,14 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data/
 
+  prometheus:
+    image: bitnami/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - prom_data:/opt/bitnami/prometheus/data
+
 volumes:
   pg_data:
+  prom_data:
