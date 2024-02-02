@@ -44,6 +44,8 @@ export const Profile:FC<ProfileProps> =({onClose}) => {
                     id : res.data.id
                 }
             })
+            alert("data updated successfully")
+            onClose()
         })
 
     }
