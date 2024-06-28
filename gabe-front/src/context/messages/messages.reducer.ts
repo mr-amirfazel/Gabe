@@ -12,6 +12,7 @@ import {
       case MessageActionTypes.Get_Current_Messages:
         state.roomId = action.payload.roomId;
         state.MessageList = action.payload.MessageList;
+        state.header = action.payload.header;
         return state;
       case MessageActionTypes.Send_New_Message:
         state.MessageList.push(action.payload);

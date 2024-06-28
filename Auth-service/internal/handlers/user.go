@@ -26,7 +26,7 @@ func Register(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request body"})
 	}
 
-	fmt.Println("dto; ",newUserDTO)
+	// fmt.Println("dto; ",newUserDTO)
 
 	// Hash the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newUserDTO.Password), bcrypt.DefaultCost)
@@ -51,11 +51,6 @@ func Register(c echo.Context) error {
 	}
 	imageBase64 := base64.StdEncoding.EncodeToString(imageBytes)
 
-	fmt.Println("imagebase64: ", "sd")
-
-	
-
-
 	newUser := models.User{
 		ID: 	   utils.GenarateUserID(),
 		FirstName: newUserDTO.FirstName,
@@ -67,7 +62,7 @@ func Register(c echo.Context) error {
 		Bio:       newUserDTO.Bio,
 	}
 
-	fmt.Println("newUserTobeSaved: ", newUser)
+	fmt.Println("newUserTobeSaved: ", newUser.ID)
 
 	collection := db.GetDB().Collection("users")
 	
@@ -89,7 +84,7 @@ func Login(c echo.Context) error {
 	
 		// Retrieve user from the database
 		filter := bson.M{"username": loginUser.Username}
-		result := db.GetDB().Collection("users").FindOne(context.TODO(), filter)
+		result := db.GetDB().Collection(utils.Users).FindOne(context.TODO(), filter)
 	
 		var storedUser models.User
 		if err := result.Decode(&storedUser); err != nil {

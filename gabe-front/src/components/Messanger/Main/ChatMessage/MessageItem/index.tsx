@@ -12,7 +12,10 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
   text,
   id,
 }) => {
-  const { dispatch } = useContext(AppContext);
+  const {
+    state: { messages },
+    dispatch,
+  } = useContext(AppContext);
   const handleDeleteMessage = (id: number) => {
     dispatch({
       type: MessageActionTypes.Remove_Message,
@@ -30,7 +33,7 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
           />
           <div className={"p-2 w-[250px] rounded-lg shadow-md mr-2 bg-white"}>
             <div className="p-1 flex justify-between items-center">
-              <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+              <h4 className="font-bold text-sm">fazel</h4>
               <AiFillDelete
                 className="cursor-pointer"
                 onClick={() => handleDeleteMessage(id)}
@@ -47,7 +50,7 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
             className={"p-2 w-[250px] rounded-lg shadow-md ml-2 bg-blue-400"}
           >
             <div className="p-1 flex justify-between items-center">
-              <h4 className="font-bold text-sm">پوریا باباعلی</h4>
+              <h4 className="font-bold text-sm">{messages.header.name}</h4>
               <AiFillDelete
                 className="cursor-pointer"
                 onClick={() => handleDeleteMessage(id)}
@@ -57,7 +60,7 @@ export const MessageItem: React.FunctionComponent<MessageItemProps> = ({
           </div>
           <img
             className="rounded-full  w-[50px] h-[50px]  overflow-hidden"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS19EaFNNE8RqQ8HeB4ld93gq_4z8EoXkbOUT4YUcqZqHZaixy803NACsEQnPU4d_6O8HA&usqp=CAU"
+            src="https://avatars.githubusercontent.com/u/82243525?v=4"
             alt=""
           />
         </li>

@@ -1,18 +1,10 @@
 package utils
 
-import(
-	"github.com/bwmarrin/snowflake"
-	"fmt"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func GenarateUserID() int64{
-	node, err := snowflake.NewNode(1)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	// Generate a snowflake ID.
-	id := node.Generate()
-
-	return id.Int64()
+func GenarateUserID() primitive.ObjectID{
+	objID:= primitive.NewObjectID()
+	return objID
 }

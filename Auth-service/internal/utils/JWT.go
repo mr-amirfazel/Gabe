@@ -3,10 +3,11 @@ package utils
 import (
 	"time"
 	"github.com/dgrijalva/jwt-go"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 	// generateJWTToken generates a JWT token for the user ID
-func GenerateJWTToken(userID int64) string {
+func GenerateJWTToken(userID primitive.ObjectID) string {
 	// Your secret key for signing the token
 	secretKey := "2x_Pud8W1ODk4qIffFlE0U8awL-pce3OiT-c2OTWYp0"
 	

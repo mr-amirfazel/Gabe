@@ -26,7 +26,7 @@ export const Login: FC = () => {
     
     console.log(data);
 
-    AXIOS.post('/login', data).then(result =>{
+    AXIOS.post('/login/', data).then(result =>{
         dispatch({
           type: UserActionTypes.Login_Success,
           payload: {

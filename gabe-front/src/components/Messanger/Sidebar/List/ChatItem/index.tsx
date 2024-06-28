@@ -1,19 +1,52 @@
-import { FC, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, useContext } from "react";
 import { ChatItemProps } from "../../../../../@types/Sidebar.types";
 import React from "react";
+import { AppContext } from "../../../../../context/store";
+import { MessageActionTypes } from "../../../../../@types/context/context.types";
+import { messagesConstant } from "../../../../../constants/messages";
 interface ChatItemComponentProps extends React.PropsWithChildren {
   props: ChatItemProps
 }
 export const ChatItem: FC<ChatItemComponentProps> = ({props}) => {
-  console.log('hola');
-  
 
-  useEffect ( () => {
-    console.log('hi');
-    
-  },[])
+  const {
+    state: { messages },
+    dispatch,
+  } = useContext(AppContext);
 
-    return (<div>
+  const handleMessageFetch = () => {
+
+    // JSONAXIOS.get(`${ApiRoutes.GetMessages}${props.roomId}`)
+    // .then((res) => {
+    //   if (res?.data?.length > 0) {
+    //     // dispatch data to context
+    //     dispatch({
+    //       type: MessageActionTypes.Get_Current_Messages,
+    //       payload: res?.data[0],
+    //     });
+    //   }
+    // })
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // .catch((err) => {
+    //   // notification raise
+    // });
+
+    console.log(messagesConstant.filter(item => item.roomId == props.roomId));
+    dispatch({
+      type: MessageActionTypes.Get_Current_Messages,
+      payload : {
+        roomId: props.roomId,
+        MessageList : messagesConstant.filter(item => item.roomId == props.roomId)[0].MessageList,
+        header : {
+          name: props.name,
+          situation: props.user_status
+        }
+      }
+    })
+  }
+
+    return (<div onClick={handleMessageFetch}>
         <div
       className=
         "flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2"

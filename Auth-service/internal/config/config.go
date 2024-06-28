@@ -16,7 +16,7 @@ var config Config
 
 
 func LoadConfig(){
-	viper.SetConfigFile("../configs/conf.yml")
+	viper.SetConfigFile("../../configs/conf.yml")
 	viper.AddConfigPath(".")
 	// viper.SetConfigType("yaml")
 

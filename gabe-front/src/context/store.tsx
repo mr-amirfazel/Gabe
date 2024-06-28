@@ -14,6 +14,10 @@ const IntialState: ContextAppState = {
     chatList: [],
   },
   messages: {
+    header : {
+      name : "",
+      situation : "offline"
+    },
     MessageList: [],
     roomId: "",
   },

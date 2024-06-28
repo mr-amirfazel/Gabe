@@ -9,7 +9,8 @@ const list_data: ChatItemProps[]= [ {
     time: "2023-04-22T07:11:59+00:00",
     last_message: "پاشو ارائه ابری داریم",
     user_status: "online",
-    unseen_messages: 3
+    unseen_messages: 3,
+    roomId: 123
 },
 {
     image: "https://avatars.githubusercontent.com/u/78533422?v=4",
@@ -17,7 +18,8 @@ const list_data: ChatItemProps[]= [ {
     time: "2023-04-22T07:11:59+00:00",
     last_message: " داش امشب نمیای خوابگاه",
     user_status: "offline",
-    unseen_messages: 3
+    unseen_messages: 3,
+    roomId: 122
 },
 {
     image: "https://avatars.githubusercontent.com/u/82243525?v=4",
@@ -25,7 +27,8 @@ const list_data: ChatItemProps[]= [ {
     time: "2023-04-22T07:11:59+00:00",
     last_message: "وای کاش فاضل بودممم",
     user_status: "offline",
-    unseen_messages: 3
+    unseen_messages: 3,
+    roomId: 124
 }]
 
 export const Sidebar: FC = () => {

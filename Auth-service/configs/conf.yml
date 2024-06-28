@@ -1,0 +1,3 @@
+Database:
+  URI : mongodb+srv://fazel:gabeAuth@gabe.uomwmlz.mongodb.net/?retryWrites=true&w=majority&appName=gabe
+  Name : gabe
