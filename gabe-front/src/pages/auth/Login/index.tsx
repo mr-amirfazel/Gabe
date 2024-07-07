@@ -2,7 +2,7 @@
 import { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { AXIOS } from "../../../config/axios.config";
+import { AXIOS } from "../../../config/config";
 import { AppContext } from "../../../context/store";
 import { UserActionTypes } from "../../../@types/context/context.types";
 
@@ -12,7 +12,11 @@ interface LoginFormValues {
 }
 
 export const Login: FC = () => {
-  const { register, handleSubmit , formState: { errors } } = useForm<LoginFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>();
 
   const {
     state: { user },
@@ -23,35 +27,35 @@ export const Login: FC = () => {
   const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     // Handle form submission with the data
     console.log(errors);
-    
+
     console.log(data);
 
-    AXIOS.post('/login/', data).then(result =>{
-        dispatch({
-          type: UserActionTypes.Login_Success,
-          payload: {
-            refresh: result.data.refresh,
-            access: result.data.access,
-            username: data.username
-          }
-        })
+    AXIOS.post("/login/", data).then((result) => {
+      dispatch({
+        type: UserActionTypes.Login_Success,
+        payload: {
+          refresh: result.data.refresh,
+          access: result.data.access,
+          username: data.username,
+        },
+      });
 
-        AXIOS.defaults.headers.common.Authorization =
+      AXIOS.defaults.headers.common.Authorization =
         "Bearer " + result.data.access;
       navigation("/");
 
-      localStorage.setItem("access", result.data.access)
-      localStorage.setItem("refresh", result.data.refresh)
-      
-    })
-    
+      localStorage.setItem("access", result.data.access);
+      localStorage.setItem("refresh", result.data.refresh);
+    });
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label className="block text-xl font-bold text-[#3cebba]">Username</label>
+          <label className="block text-xl font-bold text-[#3cebba]">
+            Username
+          </label>
           <input
             type="text"
             {...register("username", { required: true })}
@@ -60,7 +64,9 @@ export const Login: FC = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-xl font-bold text-[#3cebba]">Password</label>
+          <label className="block text-xl font-bold text-[#3cebba]">
+            Password
+          </label>
           <input
             type="password"
             {...register("password", { required: true })}

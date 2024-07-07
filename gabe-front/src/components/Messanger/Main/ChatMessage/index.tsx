@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from "react";
 import { MessageItem } from "./MessageItem";
-import { AXIOS } from "../../../../config/axios.config";
+import { AXIOS } from "../../../../config/config";
 import { ApiRoutes } from "../../../../constants/api.route";
 import { AppContext } from "../../../../context/store";
 interface ChatMessageProps extends React.PropsWithChildren {}
