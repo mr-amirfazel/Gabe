@@ -1,25 +1,52 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import { FC, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginFormValues } from ".";
-import { AUTH_AXIOS } from "../../../config/config";
+import { AUTH_AXIOS, CHAT_AXIOS } from "../../../config/config";
+import { AppContext } from "../../../context/store";
+import { UserActionTypes } from "../../../@types/context/context.types";
 
 export const Login: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { _ },
   } = useForm<LoginFormValues>();
+  const {dispatch} = useContext(AppContext);
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
+  const navigation = useNavigate();
+
+
+
+  const onSubmit: SubmitHandler<LoginFormValues> =  (data) => {
     // Handle form submission with the data
-    console.log(errors);
 
-    console.log(data);
+    AUTH_AXIOS.post("/login", data).then((response) => {
+      console.log(response.data);
 
-    AUTH_AXIOS.post("/login", data).then((data) => {
-      console.log(data);
+      const token = response.data.token;
+      const username = response.data.user.username;
+
+      dispatch({
+        type: UserActionTypes.Login_Success,
+        payload: {
+          user: response.data.user
+        }
+      })
+
+      CHAT_AXIOS.defaults.headers.common.Authorization =
+        "Bearer " + token;
+
+
+      sessionStorage.setItem("gabe-token", token);
+      sessionStorage.setItem("gabe-username", username);
+
+
+      navigation('/')
     });
+
+    
+    
 
   };
 

@@ -108,8 +108,12 @@ func Login(c echo.Context) error {
 			Path:    "/",
 		})
 	
-		return c.JSON(http.StatusOK, map[string]string{"message": "Login successful"})
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"message": "Login successful",
+			"user":    storedUser,
+			"token": token,
+		})
 
-	}
+}
 	
 

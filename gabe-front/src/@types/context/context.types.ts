@@ -13,8 +13,7 @@ export type ContextAction<T, K> = {
 
 export type UserAppState = {
   username: string;
-  refresh: string;
-  access: string;
+  token: string;
   image?: string;
   firstname: string;
   lastname: string;

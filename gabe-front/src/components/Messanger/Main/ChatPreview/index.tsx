@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { BsChatDots } from "react-icons/bs";
 interface ChatPreviewProps extends React.PropsWithChildren {}
 export const ChatPreview: React.FunctionComponent<ChatPreviewProps> = (
