@@ -4,7 +4,7 @@ import "./index.css";
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 import { AppContext } from "../../../context/store";
-import { AXIOS } from "../../../config/config";
+import { CHAT_AXIOS } from "../../../config/config";
 import { UserActionTypes } from "../../../@types/context/context.types";
 
 interface ProfileProps extends React.PropsWithChildren {
@@ -29,7 +29,7 @@ export const Profile: FC<ProfileProps> = ({ onClose }) => {
   const updateUserData = (data: any) => {
     console.log(data);
 
-    AXIOS.patch(`/users/${user.id}/`, data).then((res) => {
+    CHAT_AXIOS.patch(`/users/${user.id}/`, data).then((res) => {
       dispatch({
         type: UserActionTypes.Update_profile,
         payload: {

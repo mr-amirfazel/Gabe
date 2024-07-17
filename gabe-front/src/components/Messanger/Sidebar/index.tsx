@@ -25,7 +25,7 @@ const list_data: ChatItemProps[]= [ {
     image: "https://avatars.githubusercontent.com/u/82243525?v=4",
     name: "sadeq",
     time: "2023-04-22T07:11:59+00:00",
-    last_message: "وای کاش فاضل بودممم",
+    last_message: " فاضل ",
     user_status: "offline",
     unseen_messages: 3,
     roomId: 124

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
   DetailedHTMLProps,
   LiHTMLAttributes,
@@ -8,8 +10,6 @@ import React, {
   useRef,
 } from "react";
 import { MessageItem } from "./MessageItem";
-import { AXIOS } from "../../../../config/config";
-import { ApiRoutes } from "../../../../constants/api.route";
 import { AppContext } from "../../../../context/store";
 interface ChatMessageProps extends React.PropsWithChildren {}
 export const ChatMessage: React.FunctionComponent<ChatMessageProps> = (

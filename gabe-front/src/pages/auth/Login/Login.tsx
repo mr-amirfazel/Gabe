@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginFormValues } from ".";
+import { AUTH_AXIOS } from "../../../config/config";
 
 export const Login: FC = () => {
   const {
@@ -16,7 +17,10 @@ export const Login: FC = () => {
 
     console.log(data);
 
-    AXIOS;
+    AUTH_AXIOS.post("/login", data).then((data) => {
+      console.log(data);
+    });
+
   };
 
   return (

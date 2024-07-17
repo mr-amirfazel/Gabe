@@ -1,14 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import "./index.css";
-import { AXIOS } from "../../../config/config";
+import { AUTH_AXIOS } from "../../../config/config";
 
 export const Signup: FC = () => {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data: unknown) => {
-    AXIOS.post("/register", data).then((data) => {
+  const onSubmit = (data: any) => {
+    const formData = new FormData();
+    formData.append("firstname", data.firstname);
+    formData.append("lastname", data.lastname);
+    formData.append("phone", data.phone);
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+    formData.append("image", data.image[0]); // Ensure the image file is appended
+    formData.append("bio", data.bio);
+    
+    AUTH_AXIOS.post("/register", formData ,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((data) => {
       console.log(data);
     });
   };
@@ -24,7 +39,7 @@ export const Signup: FC = () => {
             <input
               type="text"
               id="firstname"
-              {...register("first_name", {
+              {...register("firstname", {
                 required: "firstname is required",
                 maxLength: 50,
               })}
@@ -39,7 +54,7 @@ export const Signup: FC = () => {
             <input
               type="text"
               id="lastname"
-              {...register("last_name", { required: true, maxLength: 50 })}
+              {...register("lastname", { required: true, maxLength: 50 })}
               className="border border-gray-300 rounded w-full py-2 px-3"
               placeholder="Last Name"
             />

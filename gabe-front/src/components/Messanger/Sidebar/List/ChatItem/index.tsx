@@ -53,8 +53,8 @@ export const ChatItem: FC<ChatItemComponentProps> = ({props}) => {
     >
       <div className="w-full">
         <div className="flex justify-between items-center">
-        <h6 className="text-sm font-bold ml-2">{props.user_status}</h6>
-          <h4 className="text-md font-bold ml-2">{props.name}</h4>
+        <h6 className="text-sm font-bold ml-2">{props.name}</h6>
+          <h4 className="text-md font-bold ml-2">{props.user_status}</h4>
           <h6 className="text-sm font-semibold">
             {new Date(props.time).toLocaleDateString("fa-IR")}
           </h6>

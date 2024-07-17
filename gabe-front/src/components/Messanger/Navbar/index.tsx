@@ -5,9 +5,10 @@ import { FiUserPlus } from "react-icons/fi";
 import { GrGroup } from "react-icons/gr";
 import { RiContactsBook2Line } from "react-icons/ri";
 import { AppContext } from "../../../context/store";
-import { AXIOS } from "../../../config/config";
+import { CHAT_AXIOS } from "../../../config/config";
 import { UserActionTypes } from "../../../@types/context/context.types";
 import { Profile } from "../../Modals/Profile";
+import { Tooltip } from "@mui/material";
 
 export const Navbar: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -18,7 +19,7 @@ export const Navbar: FC = () => {
   } = useContext(AppContext);
 
   const fetchUser = () => {
-    AXIOS.get(`/users/?username=${user.username}`).then((res) => {
+    CHAT_AXIOS.get(`/users/?username=${user.username}`).then((res) => {
       dispatch({
         type: UserActionTypes.Update_profile,
         payload: {
@@ -47,23 +48,31 @@ export const Navbar: FC = () => {
   return (
     <div className="flex flex-col justify-between items-center p-4 h-full rounded-lg bg-slate-600 text-white">
       {showModal && <Profile onClose={closeModal} />}
-      <button>
-        <IoIosChatboxes />
-      </button>
-      <div className="h-24 flex flex-col justify-evenly">
+      <Tooltip title="chats">
         <button>
-          <FiUserPlus />
+          <IoIosChatboxes />
         </button>
+      </Tooltip>
+      <div className="h-60 flex flex-col justify-evenly">
+        <Tooltip title="add contacts">
+          <button>
+            <FiUserPlus />
+          </button>
+        </Tooltip>
         <button>
           <GrGroup />
         </button>
+       <Tooltip title="contacts">
         <button>
-          <RiContactsBook2Line />
-        </button>
+            <RiContactsBook2Line />
+          </button>
+       </Tooltip>
       </div>
-      <button onClick={openModal}>
-        <CgProfile />
-      </button>
+      <Tooltip title="profile">
+        <button onClick={openModal}>
+          <CgProfile />
+        </button>
+      </Tooltip>
     </div>
   );
 };

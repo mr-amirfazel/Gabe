@@ -27,6 +27,7 @@ func main(cfg config.Config){
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	a := e.Group("/api")
 

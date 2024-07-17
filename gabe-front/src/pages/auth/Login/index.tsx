@@ -2,11 +2,11 @@
 import { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { AXIOS } from "../../../config/config";
+import { AUTH_AXIOS } from "../../../config/config";
 import { AppContext } from "../../../context/store";
 import { UserActionTypes } from "../../../@types/context/context.types";
 
-interface LoginFormValues {
+export interface LoginFormValues {
   username: string;
   password: string;
 }
@@ -30,7 +30,7 @@ export const Login: FC = () => {
 
     console.log(data);
 
-    AXIOS.post("/login/", data).then((result) => {
+    AUTH_AXIOS.post("/login/", data).then((result) => {
       dispatch({
         type: UserActionTypes.Login_Success,
         payload: {
@@ -40,7 +40,7 @@ export const Login: FC = () => {
         },
       });
 
-      AXIOS.defaults.headers.common.Authorization =
+      AUTH_AXIOS.defaults.headers.common.Authorization =
         "Bearer " + result.data.access;
       navigation("/");
 
