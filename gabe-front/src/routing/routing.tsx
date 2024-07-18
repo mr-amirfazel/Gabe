@@ -5,13 +5,18 @@ import { Login } from "../pages/auth/Login/Login";
 import { AuthLayout } from "../components/Layout/AuthLayout";
 import { Signup } from "../pages/auth/Signup";
 import { Home } from "../pages/home";
+import { PrivateRoute } from "../privateRoute";
 
 export const Routing: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+            } />
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

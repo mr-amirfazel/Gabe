@@ -17,7 +17,7 @@ export type UserAppState = {
   image?: string;
   firstname: string;
   lastname: string;
-  phonenumber: string;
+  phone: string;
   bio: string;
   id: number;
 };

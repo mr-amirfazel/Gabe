@@ -1,10 +1,14 @@
-import { FC, useContext } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginFormValues } from ".";
 import { AUTH_AXIOS, CHAT_AXIOS } from "../../../config/config";
 import { AppContext } from "../../../context/store";
 import { UserActionTypes } from "../../../@types/context/context.types";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Login: FC = () => {
   const {
@@ -17,37 +21,44 @@ export const Login: FC = () => {
   const navigation = useNavigate();
 
 
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
-  const onSubmit: SubmitHandler<LoginFormValues> =  (data) => {
-    // Handle form submission with the data
 
-    AUTH_AXIOS.post("/login", data).then((response) => {
-      console.log(response.data);
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    setLoading(true); // Set loading to true when form is submitted
 
+    try {
+      const response = await AUTH_AXIOS.post("/login", data);
+      console.log(response.data.user);
+      
       const token = response.data.token;
       const username = response.data.user.username;
 
       dispatch({
         type: UserActionTypes.Login_Success,
         payload: {
-          user: response.data.user
-        }
-      })
+          user: response.data.user,
+        },
+      });
 
-      CHAT_AXIOS.defaults.headers.common.Authorization =
-        "Bearer " + token;
-
+      CHAT_AXIOS.defaults.headers.common.Authorization = "Bearer " + token;
 
       sessionStorage.setItem("gabe-token", token);
       sessionStorage.setItem("gabe-username", username);
 
+      toast.success(response.data.message, {
+        onClose: () => {
+          navigation('/')
+        }
+      });
 
-      navigation('/')
-    });
-
-    
-    
-
+    } catch (error : any) {
+      console.log(error);
+      
+      toast.error(error.response.data.error);
+    } finally {
+      setLoading(false); // Set loading to false when request is completed
+    }
   };
 
   return (
@@ -84,7 +95,7 @@ export const Login: FC = () => {
           type="submit"
           className="bg-blue-500 text-white rounded py-2 px-4 hover:bg-blue-600 w-full"
         >
-          Login
+          {loading ? "Loading..." : "Login"}
         </button>
       </form>
     </>

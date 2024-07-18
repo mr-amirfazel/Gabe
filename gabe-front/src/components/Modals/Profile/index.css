@@ -10,9 +10,23 @@
   
   .modal {
     position: fixed;
-    top: 13vh;
+    top: 5vh;
     left: 10%;
     width: 80%;
     z-index: 100;
     overflow: auto;
+
+
+    /* From https://css.glass */
+    /* From https://css.glass */
+    background: rgba(21, 21, 49, 0.686);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.2px);
+    -webkit-backdrop-filter: blur(12.2px);
+    border: 1px solid rgba(47, 49, 113, 0.22);
+  }
+
+  .profile__label{
+    color: white;
   }

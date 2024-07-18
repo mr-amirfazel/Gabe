@@ -97,7 +97,7 @@ func Login(c echo.Context) error {
 		}
 	
 		// Generate JWT token
-		token := utils.GenerateJWTToken(storedUser.ID)
+		token := utils.GenerateJWTToken(storedUser.ID, storedUser.Username)
 	
 		// Set token in response header or cookie as needed
 		c.Response().Header().Set("Authorization", "Bearer "+token)

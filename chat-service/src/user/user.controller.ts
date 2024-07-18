@@ -10,7 +10,7 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  search(@Query('keyword') keyword: string) {
+  search(@Query('username') keyword: string) {
     return this.userService.search(keyword);
   }
 

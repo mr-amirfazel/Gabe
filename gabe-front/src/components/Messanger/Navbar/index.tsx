@@ -19,7 +19,7 @@ export const Navbar: FC = () => {
   } = useContext(AppContext);
 
   const fetchUser = () => {
-    CHAT_AXIOS.get(`/users/?username=${user.username}`).then((res) => {
+    CHAT_AXIOS.get(`/users/?kkch=${user.username}`).then((res) => {
       dispatch({
         type: UserActionTypes.Update_profile,
         payload: {
