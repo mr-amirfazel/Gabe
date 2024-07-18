@@ -1,10 +1,14 @@
 import { FC } from "react"
 import './styles.css'
 
-export const Searchbar:FC = () => {
+interface SearchBarProps {
+    onChange: (value: string) => void;
+}
+
+export const Searchbar:FC<SearchBarProps> = ({ onChange }: SearchBarProps) => {
     return (
         <div className="search">
-        <input type="text" className="search__input" placeholder="Type your text" />
+        <input type="text" className="search__input" placeholder="Type your text" onChange={(e) => onChange(e.target.value)} />
         <button className="search__button">
             <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
                 <g>
