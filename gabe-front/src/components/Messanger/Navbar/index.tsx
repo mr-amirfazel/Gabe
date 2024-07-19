@@ -19,7 +19,7 @@ export const Navbar: FC = () => {
   } = useContext(AppContext);
 
   const fetchUser = () => {
-    CHAT_AXIOS.get(`/users/?kkch=${user.username}`).then((res) => {
+    CHAT_AXIOS.get(`/users/?username=${user.username}`).then((res) => {
       dispatch({
         type: UserActionTypes.Update_profile,
         payload: {
@@ -45,11 +45,13 @@ export const Navbar: FC = () => {
     setShowModal(false);
   };
 
+  const selectChats = () => {}
+
   return (
     <div className="flex flex-col justify-between items-center p-4 h-full rounded-lg bg-slate-600 text-white">
       {showModal && <Profile onClose={closeModal} />}
       <Tooltip title="chats">
-        <button>
+        <button onClick={selectChats}>
           <IoIosChatboxes />
         </button>
       </Tooltip>

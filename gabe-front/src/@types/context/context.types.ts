@@ -1,7 +1,7 @@
 import { ChatItemProps } from "../Sidebar.types";
 
 export type ContextAppState = {
-  contacts: ChatListState;
+  list: ListState;
   messages: MessageState;
   user: UserAppState;
 };
@@ -27,14 +27,16 @@ export enum UserActionTypes {
   Update_profile = "Update_profile",
 }
 
-export type ChatListState = {
-  chatList: ChatItemProps[];
+export type ListState = {
+  listType: 'ChatItem' | 'UserItem' | 'ContactItem'
+  itemList: ChatItemProps[];
   searchList: ChatItemProps[];
 };
 
-export enum ChatListActionTypes {
-  Get_All_Contact = "Get_All_Contact",
-  Search_Contact = "Search_Contact",
+export enum ListActionTypes {
+  Get_All_Items = "Get_All_Items",
+  Search_Items = "Search_Items",
+  Set_List_Type = "Set_List_type"
 }
 
 export enum MessageActionTypes {

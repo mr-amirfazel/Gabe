@@ -1,8 +1,11 @@
 import { FC } from "react";
-import { ContactItemProps } from "../../../../../@types/Sidebar.types";
+import { ContactItemProps, ItemComponentProps } from "../../../../../@types/Sidebar.types";
 
+export interface ContactItemComponentProps {
+  item: ContactItemProps 
+}
 
-export const ContactItem: FC<ContactItemProps> = (props) => {
+export const ContactItem: FC<ContactItemComponentProps> = ({item}) => {
     return (<div>
         <div
       className=
@@ -12,13 +15,13 @@ export const ContactItem: FC<ContactItemProps> = (props) => {
         <div className="flex justify-between items-center">
           <h6 className="text-sm font-semibold">
           </h6>
-          <h4 className="text-md font-bold ml-2">{props.name}</h4>
-          <h6 className="text-sm font-bold ml-2">{props.user_status}</h6>
+          <h4 className="text-md font-bold ml-2">{item.name}</h4>
+          <h6 className="text-sm font-bold ml-2">{item.user_status}</h6>
         </div>
       </div>
       <img
         className="rounded-full w-[50px] h-[50px] bg-black overflow-hidden"
-        src={props.image}
+        src={item.image}
         alt=""
       />
     </div>

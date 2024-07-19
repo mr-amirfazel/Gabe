@@ -1,25 +1,58 @@
-import { FC, useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, useContext, useEffect, useState } from "react";
 import { Searchbar } from "./Search";
 import { List } from "./List";
-import { ChatItemProps } from "../../../@types/Sidebar.types";
+import { ChatItemProps, ContactItemProps, UserItemProps } from "../../../@types/Sidebar.types";
 import { useDebounce } from "../../../hooks/useDebounce";
+import { ChatItem } from "./List/ChatItem";
+import { ContactItem } from "./List/ContactItem";
+import { UserItem } from "./List/UserItem";
+import { AppContext } from "../../../context/store";
 
+// Define the list_data as an empty array for now
+const list_data: ChatItemProps[] | ContactItemProps[] | UserItemProps[] = [
+];
 
-const list_data: ChatItemProps[]= [ ]
+type ListItemComponent<T> = FC<{ item: T }>;
+
+interface ListState<T> {
+    Component: ListItemComponent<T>;
+}
+
 
 export const Sidebar: FC = () => {
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search);
+  const [viewer, setViewer] = useState<ListState<any>>({
+    Component: ContactItem,
+});
 
-    const [search, setSearch] = useState('');
-    const debouncedSearch = useDebounce(search);
+  const {
+    state: { list }
+  } = useContext(AppContext);
 
+  useEffect(() => {
+    console.log(debouncedSearch);
+  }, [debouncedSearch]);
 
-    useEffect(() => {
-        console.log(debouncedSearch);
-        
-      }, [debouncedSearch]);
+  useEffect(() => {
+    switch (list.listType) {
+      case 'ChatItem':
+        setViewer({Component: ChatItem});
+        break;
+      case 'ContactItem':
+        setViewer({Component: ContactItem});
+        break;
+      case 'UserItem':
+        setViewer({Component: UserItem});
+        break;
+    }
+  }, [list.listType]);
 
-    return(<div className="w-[95%] flex flex-col ">
-        <Searchbar onChange={setSearch}/>
-        <List listData={list_data}/>
-    </div>)
-}
+  return (
+    <div className="w-[95%] flex flex-col h-full">
+      <Searchbar onChange={setSearch} />
+      <List listData={list_data as any} itemViewer={viewer.Component} />
+    </div>
+  );
+};

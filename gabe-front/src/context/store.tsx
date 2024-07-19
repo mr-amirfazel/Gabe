@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useReducer } from "react";
-import { ChatlistReducer } from "./chatlist/chatlist.reducer";
+import { ListReducer } from "./list/list.reducer";
 import {
   ContextAction,
   ContextAppState,
@@ -9,9 +9,10 @@ import { MessageReducer } from "./messages/messages.reducer";
 import { UserReducer } from "./user/user.reducer";
 
 const IntialState: ContextAppState = {
-  contacts: {
+  list: {
     searchList: [],
-    chatList: [],
+    itemList: [],
+    listType: 'ChatItem'
   },
   messages: {
     header : {
@@ -27,7 +28,7 @@ const IntialState: ContextAppState = {
     image: "",
     firstname: "",
     lastname: "",
-    phonenumber: "",
+    phone: "",
     bio: "",
     id: 0,
   },
@@ -41,10 +42,10 @@ const AppContext = createContext<{
 });
 
 const combineReducer = (
-  { contacts, messages, user }: ContextAppState,
+  { list, messages, user }: ContextAppState,
   action: any
 ) => ({
-  contacts: ChatlistReducer(contacts, action),
+  list: ListReducer(list, action),
   messages: MessageReducer(messages, action),
   user: UserReducer(user, action),
 });
