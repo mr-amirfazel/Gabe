@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ComponentType, FC } from "react";
+import { ComponentType, FC, useContext } from "react";
 import { ChatItemProps, ContactItemProps, UserItemProps } from "../../../../@types/Sidebar.types";
+import { AppContext } from "../../../../context/store";
 
 
 type ListItem = ChatItemProps | ContactItemProps | UserItemProps;
@@ -14,6 +15,17 @@ interface ListProps<T extends ListItem> {
 
 
 export const List = <T extends ListItem>({ listData, itemViewer: ItemViewer }: ListProps<T>) => {
+    
+    const {state: {list}} = useContext(AppContext);
+
+
+    if (list.listLoading)
+        return(
+        <div className="h-full w-full text-center flex justify-center items-center font-bold">
+            Loading....
+        </div>
+        )
+    
     return listData.length === 0 ? (
         <div className="h-full w-full text-center flex justify-center items-center font-bold">
             Nothing was found here.
@@ -21,10 +33,10 @@ export const List = <T extends ListItem>({ listData, itemViewer: ItemViewer }: L
             make a chat!!
         </div>
     ) : (
-        <>
+        <div className="overflow-auto">
             {listData.map((item, index) => (
                 <ItemViewer key={index} item={item} />
             ))}
-        </>
+        </div>
     );
 }

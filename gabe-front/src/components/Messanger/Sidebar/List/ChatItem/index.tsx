@@ -26,7 +26,7 @@ export const ChatItem: FC<ChatItemComponentProps> = ({ item }) => {
         roomId: item.roomId,
         MessageList: messagesConstant.filter((msg) => msg.roomId === item.roomId)[0]?.MessageList || [],
         header: {
-          name: item.name,
+          name: item.username,
           situation: item.user_status,
         },
       },
@@ -38,7 +38,7 @@ export const ChatItem: FC<ChatItemComponentProps> = ({ item }) => {
       <div className="flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
         <div className="w-full">
           <div className="flex justify-between items-center">
-            <h6 className="text-sm font-bold ml-2">{item.name}</h6>
+            <h6 className="text-sm font-bold ml-2">{item.username}</h6>
             <h4 className="text-md font-bold ml-2">{item.user_status}</h4>
             <h6 className="text-sm font-semibold">
               {new Date(item.time).toLocaleDateString("fa-IR")}

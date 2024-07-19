@@ -1,4 +1,4 @@
-import { ChatItemProps } from "../Sidebar.types";
+import { ChatItemProps, ItemProps } from "../Sidebar.types";
 
 export type ContextAppState = {
   list: ListState;
@@ -28,15 +28,17 @@ export enum UserActionTypes {
 }
 
 export type ListState = {
+  listLoading: boolean,
   listType: 'ChatItem' | 'UserItem' | 'ContactItem'
-  itemList: ChatItemProps[];
-  searchList: ChatItemProps[];
+  itemList: ItemProps[];
+  searchList: ItemProps[];
 };
 
 export enum ListActionTypes {
   Get_All_Items = "Get_All_Items",
   Search_Items = "Search_Items",
-  Set_List_Type = "Set_List_type"
+  Set_List_Type = "Set_List_type",
+  Set_List_Loading = "Set_List_Loading"
 }
 
 export enum MessageActionTypes {

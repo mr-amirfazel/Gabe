@@ -36,6 +36,8 @@ export const Sidebar: FC = () => {
   }, [debouncedSearch]);
 
   useEffect(() => {
+    console.log(list.listType);
+    
     switch (list.listType) {
       case 'ChatItem':
         setViewer({Component: ChatItem});
@@ -52,7 +54,7 @@ export const Sidebar: FC = () => {
   return (
     <div className="w-[95%] flex flex-col h-full">
       <Searchbar onChange={setSearch} />
-      <List listData={list_data as any} itemViewer={viewer.Component} />
+      <List listData={list.itemList as any} itemViewer={viewer.Component} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 export type ChatItemProps = {
     image?: string,
-    name: string,
-    time?: string,
+    username: string,
+    time: string,
     last_message: string,
     user_status: string,
     unseen_messages: number,
@@ -10,15 +10,13 @@ export type ChatItemProps = {
 
 export type ContactItemProps = {
     image?: string,
-    name: string,
+    username: string,
     user_status: string,
 }
 
 export type UserItemProps = {
     image?: string,
-    name: string,
+    username: string,
 }
 
-export type ItemComponentProps = {
-    item: UserItemProps | ChatItemProps | ContactItemProps
-}
+export type ItemProps = UserItemProps | ChatItemProps | ContactItemProps

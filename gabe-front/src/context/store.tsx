@@ -10,6 +10,7 @@ import { UserReducer } from "./user/user.reducer";
 
 const IntialState: ContextAppState = {
   list: {
+    listLoading: false,
     searchList: [],
     itemList: [],
     listType: 'ChatItem'

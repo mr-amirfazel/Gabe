@@ -6,7 +6,7 @@ import { GrGroup } from "react-icons/gr";
 import { RiContactsBook2Line } from "react-icons/ri";
 import { AppContext } from "../../../context/store";
 import { CHAT_AXIOS } from "../../../config/config";
-import { UserActionTypes } from "../../../@types/context/context.types";
+import { ListActionTypes, UserActionTypes } from "../../../@types/context/context.types";
 import { Profile } from "../../Modals/Profile";
 import { Tooltip } from "@mui/material";
 
@@ -45,19 +45,62 @@ export const Navbar: FC = () => {
     setShowModal(false);
   };
 
-  const selectChats = () => {}
+  const selectChats = (list_type: string) => {
+    dispatch({
+      type: ListActionTypes.Set_List_Type,
+      payload: list_type
+    })
+
+    switch(list_type){
+      case 'UserItem':
+        dispatch({
+          type: ListActionTypes.Set_List_Loading,
+          payload: true
+        })
+
+        CHAT_AXIOS.get('/users').then(data => {
+          console.log('raw users: ', data)
+
+          const users = data.data.map(user => {
+            return {
+              "username": user.username,
+              "image": user.image
+            }
+          })
+
+          console.log('users ', users);
+
+
+          dispatch({
+            type: ListActionTypes.Get_All_Items,
+            payload: users
+          })
+          
+          
+
+        }).finally(()=>{
+          dispatch({
+            type: ListActionTypes.Set_List_Loading,
+            payload: false
+          })
+        })
+        
+        break;
+    }
+
+  }
 
   return (
     <div className="flex flex-col justify-between items-center p-4 h-full rounded-lg bg-slate-600 text-white">
       {showModal && <Profile onClose={closeModal} />}
       <Tooltip title="chats">
-        <button onClick={selectChats}>
+        <button onClick={() => selectChats('ChatItem')}>
           <IoIosChatboxes />
         </button>
       </Tooltip>
       <div className="h-60 flex flex-col justify-evenly">
         <Tooltip title="add contacts">
-          <button>
+          <button onClick={() => selectChats('UserItem')}>
             <FiUserPlus />
           </button>
         </Tooltip>
@@ -65,7 +108,7 @@ export const Navbar: FC = () => {
           <GrGroup />
         </button>
        <Tooltip title="contacts">
-        <button>
+        <button onClick={() => selectChats('ContactItem')}>
             <RiContactsBook2Line />
           </button>
        </Tooltip>

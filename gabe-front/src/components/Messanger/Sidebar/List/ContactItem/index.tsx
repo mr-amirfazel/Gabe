@@ -15,7 +15,7 @@ export const ContactItem: FC<ContactItemComponentProps> = ({item}) => {
         <div className="flex justify-between items-center">
           <h6 className="text-sm font-semibold">
           </h6>
-          <h4 className="text-md font-bold ml-2">{item.name}</h4>
+          <h4 className="text-md font-bold ml-2">{item.username}</h4>
           <h6 className="text-sm font-bold ml-2">{item.user_status}</h6>
         </div>
       </div>
