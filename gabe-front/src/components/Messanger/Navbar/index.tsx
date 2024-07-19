@@ -9,6 +9,8 @@ import { CHAT_AXIOS } from "../../../config/config";
 import { ListActionTypes, UserActionTypes } from "../../../@types/context/context.types";
 import { Profile } from "../../Modals/Profile";
 import { Tooltip } from "@mui/material";
+import { getAllUsers } from "../../../services/user.service";
+import { addContactAction } from "../../../actions/navbar.actions";
 
 export const Navbar: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -45,7 +47,7 @@ export const Navbar: FC = () => {
     setShowModal(false);
   };
 
-  const selectChats = (list_type: string) => {
+  const selectList = (list_type: string) => {
     dispatch({
       type: ListActionTypes.Set_List_Type,
       payload: list_type
@@ -53,38 +55,7 @@ export const Navbar: FC = () => {
 
     switch(list_type){
       case 'UserItem':
-        dispatch({
-          type: ListActionTypes.Set_List_Loading,
-          payload: true
-        })
-
-        CHAT_AXIOS.get('/users').then(data => {
-          console.log('raw users: ', data)
-
-          const users = data.data.map(user => {
-            return {
-              "username": user.username,
-              "image": user.image
-            }
-          })
-
-          console.log('users ', users);
-
-
-          dispatch({
-            type: ListActionTypes.Get_All_Items,
-            payload: users
-          })
-          
-          
-
-        }).finally(()=>{
-          dispatch({
-            type: ListActionTypes.Set_List_Loading,
-            payload: false
-          })
-        })
-        
+        addContactAction(dispatch);
         break;
     }
 
@@ -94,13 +65,13 @@ export const Navbar: FC = () => {
     <div className="flex flex-col justify-between items-center p-4 h-full rounded-lg bg-slate-600 text-white">
       {showModal && <Profile onClose={closeModal} />}
       <Tooltip title="chats">
-        <button onClick={() => selectChats('ChatItem')}>
+        <button onClick={() => selectList('ChatItem')}>
           <IoIosChatboxes />
         </button>
       </Tooltip>
       <div className="h-60 flex flex-col justify-evenly">
         <Tooltip title="add contacts">
-          <button onClick={() => selectChats('UserItem')}>
+          <button onClick={() => selectList('UserItem')}>
             <FiUserPlus />
           </button>
         </Tooltip>
@@ -108,7 +79,7 @@ export const Navbar: FC = () => {
           <GrGroup />
         </button>
        <Tooltip title="contacts">
-        <button onClick={() => selectChats('ContactItem')}>
+        <button onClick={() => selectList('ContactItem')}>
             <RiContactsBook2Line />
           </button>
        </Tooltip>
