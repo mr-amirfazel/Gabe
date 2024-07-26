@@ -1,4 +1,4 @@
-import { ChatItemProps, ItemProps } from "../Sidebar.types";
+import { ItemProps } from "../Sidebar.types";
 
 export type ContextAppState = {
   list: ListState;
@@ -19,7 +19,7 @@ export type UserAppState = {
   lastname: string;
   phone: string;
   bio: string;
-  id: number;
+  id: string;
 };
 
 export enum UserActionTypes {

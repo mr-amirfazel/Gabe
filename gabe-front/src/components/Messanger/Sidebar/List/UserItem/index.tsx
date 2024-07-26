@@ -1,6 +1,5 @@
 import { FC } from "react";
 import {
-  ItemComponentProps,
   UserItemProps,
 } from "../../../../../@types/Sidebar.types";
 

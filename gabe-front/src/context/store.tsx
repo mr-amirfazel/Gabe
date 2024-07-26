@@ -31,7 +31,7 @@ const IntialState: ContextAppState = {
     lastname: "",
     phone: "",
     bio: "",
-    id: 0,
+    id: "",
   },
 };
 const AppContext = createContext<{

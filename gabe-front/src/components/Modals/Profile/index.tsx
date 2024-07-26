@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { AppContext } from "../../../context/store";
 import { CHAT_AXIOS } from "../../../config/config";
 import { UserActionTypes, UserAppState } from "../../../@types/context/context.types";
+import { getUserByUsername } from "../../../services/user.service";
 
 interface ProfileProps extends React.PropsWithChildren {
   onClose: () => void;
@@ -31,9 +32,7 @@ export const Profile: FC<ProfileProps> = ({ onClose }) => {
     const username = sessionStorage.getItem("gabe-username");
 
     if (username) {
-      CHAT_AXIOS.get<UserAppState[]>(`/users?username=${username}`)
-        .then(response => {
-          const fetchedUser = response.data[0];
+      getUserByUsername(username).then(fetchedUser => {
           reset({
             first_name: fetchedUser.firstname,
             last_name: fetchedUser.lastname,

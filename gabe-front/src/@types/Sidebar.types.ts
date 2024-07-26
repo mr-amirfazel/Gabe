@@ -1,3 +1,5 @@
+import { UserAppState } from "./context/context.types";
+
 export type ChatItemProps = {
     image?: string,
     username: string,
@@ -9,9 +11,11 @@ export type ChatItemProps = {
 }
 
 export type ContactItemProps = {
-    image?: string,
-    username: string,
-    user_status: string,
+    contact_firstname: string;
+    contact_lastname: string;
+    contact_userId: string;
+    user: UserAppState;
+
 }
 
 export type UserItemProps = {
