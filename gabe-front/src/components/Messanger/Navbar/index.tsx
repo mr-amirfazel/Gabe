@@ -15,7 +15,7 @@ export const Navbar: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const {
-    state: { user },
+    state: { user, list },
     dispatch,
   } = useContext(AppContext);
 
@@ -71,13 +71,13 @@ export const Navbar: FC = () => {
       {showModal && <Profile onClose={closeModal} />}
       <Tooltip title="chats">
         <button onClick={() => selectList('ChatItem')}>
-          <IoIosChatboxes />
+          <IoIosChatboxes color={list.listType === 'ChatItem' ? "#5fcfcf" : "white"} />
         </button>
       </Tooltip>
       <div className="h-60 flex flex-col justify-evenly">
         <Tooltip title="add contacts">
           <button onClick={() => selectList('UserItem')}>
-            <FiUserPlus />
+            <FiUserPlus color={list.listType === 'UserItem' ? "#5fcfcf" : "white"}  />
           </button>
         </Tooltip>
         <button>
@@ -85,7 +85,7 @@ export const Navbar: FC = () => {
         </button>
        <Tooltip title="contacts">
         <button onClick={() => selectList('ContactItem')}>
-            <RiContactsBook2Line />
+            <RiContactsBook2Line color={list.listType === 'ContactItem' ? "#5fcfcf" : "white"}  />
           </button>
        </Tooltip>
       </div>

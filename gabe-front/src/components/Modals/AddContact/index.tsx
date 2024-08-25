@@ -1,8 +1,10 @@
-import { FC, useContext, useEffect} from "react";
+import { FC, useContext, useEffect, useState} from "react";
 import "./index.css";
 import { Button } from "@mui/material";
 import { addContact } from "../../../services/contact.service";
 import { AppContext } from "../../../context/store";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import { useForm } from "react-hook-form";
 // import { Button } from "@mui/material";
 // import { AppContext } from "../../../context/store";
@@ -17,6 +19,8 @@ interface AddContactProps extends React.PropsWithChildren {
 
 export const AddContact: FC<AddContactProps> = ({ onClose, username }) => {
 
+    const [isLoading, SetIsLoading] = useState<boolean>(false)
+
     const {
         state: { user },
     } = useContext(AppContext);
@@ -29,7 +33,17 @@ export const AddContact: FC<AddContactProps> = ({ onClose, username }) => {
     
 
     const createContact = () => {
-        addContact(user.id, username)
+        SetIsLoading(true)
+        addContact(user.id, username).then(data => {
+            SetIsLoading(false);
+            toast.success('Contact added successfully', {
+                onClose: () => {
+                  onClose()
+                }
+              });
+        }).catch(error => {
+            toast.error(error)
+        })
     }
 
   return(
@@ -44,12 +58,15 @@ export const AddContact: FC<AddContactProps> = ({ onClose, username }) => {
         }}
       >
         <h2>Do you want to add {username} to your contacts?</h2>
+        {isLoading && <p>Loading</p>}
+        {!isLoading && 
         <div className="flex w-[90%] justify-between gap-3">
             <Button variant="contained" type="submit" className="flex-1" onClick={() => {createContact()}}>Yes</Button>
             <Button variant="outlined" className="flex-1" onClick={onClose}>
               Cancel
             </Button>
           </div>
+        }
       </div>
     </div>
   );

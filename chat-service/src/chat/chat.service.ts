@@ -38,8 +38,20 @@ export class ChatService {
         const chats = await this.db.collection('chats').find({ members: { $in: [userId] } }).toArray();
         
         this.logger.log(`Found ${chats.length} chats for user with id: ${userId}`);
-        
-        return chats;
+        const updatedChats = await Promise.all(
+          chats.map(async (chat) => {
+            if (!chat.isGroupChat) {
+              const otherUserId = chat.members.find((id: string) => id !== userId);
+              const otherUser = await this.userService.findOne(otherUserId);
+              if (otherUser) {
+                chat.chatName = `${otherUser.firstname} ${otherUser.lastname}`;
+              }
+            }
+            return chat;
+          })
+        );
+  
+        return updatedChats;
       } catch (error) {
         this.logger.error(`Error fetching chats for user with id: ${userId}`, error.stack);
         throw error;
