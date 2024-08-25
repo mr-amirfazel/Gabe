@@ -35,7 +35,7 @@ export const ChatItem: FC<ChatItemComponentProps> = ({ item }) => {
 
   return (
     <div onClick={handleMessageFetch}>
-      <div className="flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
+      <div className="rounded-md flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
         <div className="w-full">
           <div className="flex justify-between items-center">
             <h6 className="text-sm font-bold ml-2">{item.username}</h6>

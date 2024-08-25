@@ -1,16 +1,30 @@
-import { FC } from "react";
-import {
-  UserItemProps,
-} from "../../../../../@types/Sidebar.types";
+import { FC, useState } from "react";
+import { UserItemProps } from "../../../../../@types/Sidebar.types";
+import { AddContact } from "../../../../Modals/AddContact";
 
 export interface UserItemComponentProps {
   item: UserItemProps;
 }
 
 export const UserItem: FC<UserItemComponentProps> = ({ item }) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
-      <div className=" flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
+    {showModal && <AddContact username={item.username} onClose={closeModal} />}
+      <div
+        className=" flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2 rounded-md"
+        onClick={() => {
+          openModal();
+        }}
+      >
         <div className="w-full">
           <h4 className="text-md font-bold ml-2">{item.username}</h4>
         </div>

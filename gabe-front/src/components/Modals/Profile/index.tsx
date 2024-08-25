@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useContext, useEffect, useState } from "react";
 import "./index.css";
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 import { AppContext } from "../../../context/store";
-import { CHAT_AXIOS } from "../../../config/config";
-import { UserActionTypes, UserAppState } from "../../../@types/context/context.types";
+// import { CHAT_AXIOS } from "../../../config/config";
+// import { UserActionTypes, UserAppState } from "../../../@types/context/context.types";
 import { getUserByUsername } from "../../../services/user.service";
 
 interface ProfileProps extends React.PropsWithChildren {
@@ -14,7 +16,7 @@ interface ProfileProps extends React.PropsWithChildren {
 export const Profile: FC<ProfileProps> = ({ onClose }) => {
   const {
     state: { user },
-    dispatch,
+    _,
   } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true); // Set to true initially to show loading state
 

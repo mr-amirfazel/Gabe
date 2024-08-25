@@ -12,6 +12,7 @@ export const Home:FC = () => {
         const username = sessionStorage.getItem("gabe-username");
         if(username){
             getUserByUsername(username).then(user => {
+                if(!user) return;
                 console.log('user is logged in', user);
                 
                 dispatch({

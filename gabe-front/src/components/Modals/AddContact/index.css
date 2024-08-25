@@ -1,0 +1,29 @@
+.Addcontact_backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.75);
+  }
+  
+  .Addcontact_modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 30%; */
+    z-index: 100;
+    overflow: auto;
+
+
+    /* From https://css.glass */
+    /* From https://css.glass */
+    background: rgba(31, 31, 70, 0.651);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.2px);
+    -webkit-backdrop-filter: blur(12.2px);
+    border: 1px solid rgba(86, 90, 199, 0.22);
+  }

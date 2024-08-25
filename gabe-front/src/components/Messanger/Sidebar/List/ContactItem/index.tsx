@@ -6,7 +6,7 @@ export interface ContactItemComponentProps {
 }
 
 export const ContactItem: FC<ContactItemComponentProps> = ({item}) => {
-    return (<div className=" flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
+    return (<div className="rounded-md flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
       <div className="w-full">
         <h4 className="text-md font-bold ml-2">{item?.user?.username}</h4>
       </div>

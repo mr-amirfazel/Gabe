@@ -52,7 +52,7 @@ export const Sidebar: FC = () => {
   }, [list.listType]);
 
   return (
-    <div className="w-[95%] flex flex-col h-full">
+    <div className="w-[95%] flex flex-col h-full gap-3">
       <Searchbar onChange={setSearch} />
       <List listData={list.itemList as any} itemViewer={viewer.Component} />
     </div>

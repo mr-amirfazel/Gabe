@@ -8,6 +8,8 @@ export const getAllUsers: () => Promise<UserItemProps[]> = async () => {
     // eslint-disable-next-line no-useless-catch
     try{
         const response = await CHAT_AXIOS.get('/users')
+        console.log('sob', response.data);
+        
         const users = response.data.map(user => {
             return {
                 "username": user.username,
