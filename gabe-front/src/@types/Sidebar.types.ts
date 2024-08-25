@@ -2,10 +2,10 @@ import { UserAppState } from "./context/context.types";
 
 export type ChatItemProps = {
     image?: string,
-    username: string,
+    name: string,
     time: string,
-    last_message: string,
-    user_status: string,
+    last_message?: string,
+    user_status?: boolean,
     unseen_messages: number,
     roomId: number
 }

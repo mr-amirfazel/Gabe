@@ -9,7 +9,7 @@ import { CHAT_AXIOS } from "../../../config/config";
 import { ListActionTypes, UserActionTypes } from "../../../@types/context/context.types";
 import { Profile } from "../../Modals/Profile";
 import { Tooltip } from "@mui/material";
-import { showAllUsers, showAllContacts } from "../../../actions/navbar.actions";
+import { showAllUsers, showAllContacts, showAllChats } from "../../../actions/navbar.actions";
 
 export const Navbar: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -53,6 +53,9 @@ export const Navbar: FC = () => {
     })
 
     switch(list_type){
+      case 'ChatItem':
+        showAllChats(dispatch, user.id);
+        break;
       case 'UserItem':
         showAllUsers(dispatch);
         break;

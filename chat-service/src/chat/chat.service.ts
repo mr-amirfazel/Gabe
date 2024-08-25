@@ -45,6 +45,7 @@ export class ChatService {
               const otherUser = await this.userService.findOne(otherUserId);
               if (otherUser) {
                 chat.chatName = `${otherUser.firstname} ${otherUser.lastname}`;
+                chat.chatAvatar = otherUser?.image;
               }
             }
             return chat;
