@@ -1,4 +1,4 @@
-import { createChatService } from "../services/chat.service"
+import { createChatService, getAllMessages, sendMessage } from "../services/chat.service"
 
 // contact functions
 export const deleteContact =  (userId: string, contact_Id: string) => {
@@ -18,8 +18,13 @@ export const createChat = async (userId: string, contact_Id: string) => {
 
 export const createGroupChat = () => {}
 
+export const createMessage = async (chatId: string, message: any) => {
+    const result = await sendMessage(chatId, message);
+    return result;
+}
 
 export const fetchMessages = async (chaId: string) => {
-    const messages = "alo";
+    const messages = await getAllMessages(chaId);
+    return messages;
 
 }

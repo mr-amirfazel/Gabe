@@ -10,41 +10,57 @@ export const createChatService: (data: any) => Promise<any> = async (
     const result = response.data;
     console.log(result);
     return result;
-    
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getAllChats: (userId: string) => Promise<ChatItemProps[]> = async (userId: string) => {
-    try {
-        const response = await CHAT_AXIOS.get(`/chats/${userId}`);
-        const result = response.data.map(chat => {
-            return {
-                "image": chat.chatAvatar ? chat.chatAvatar : "",
-                "name": chat.chatName,
-                "time": chat.createdAt,
-                "last_message": "string",
-                "user_status": true,
-                "unseen_messages": 12,
-                "roomId": chat.chatId
-            }
-        });
-        console.log('chats: ', result);
-        return result;
-        
-      } catch (error) {
-        console.error(error);
-      }
-}
+export const getAllChats: (userId: string) => Promise<ChatItemProps[]> = async (
+  userId: string
+) => {
+  try {
+    const response = await CHAT_AXIOS.get(`/chats/${userId}`);
+    const result = response.data.map((chat) => {
+      return {
+        image: chat.chatAvatar ? chat.chatAvatar : "",
+        name: chat.chatName,
+        time: chat.createdAt,
+        last_message: "string",
+        user_status: true,
+        unseen_messages: 12,
+        roomId: chat.chatId,
+      };
+    });
+    console.log("chats: ", result);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-export const getAllMessages: (chatId: string) => Promise<any> = async (chatId: string) => {
+
+export const sendMessage: (chatId: string, message: any) => Promise<any> = async (
+  chatId: string,
+  message: any
+) => {
     try {
-        const response = await CHAT_AXIOS.get(`/chats/${chatId}/messages`);
+        const response = await CHAT_AXIOS.post(`/chats/${chatId}/messages`, message);
         const result = response.data;
         return result;
-        
       } catch (error) {
         console.error(error);
-      }
-}
+    }
+};
+
+
+export const getAllMessages: (chatId: string) => Promise<any> = async (
+  chatId: string
+) => {
+  try {
+    const response = await CHAT_AXIOS.get(`/chats/${chatId}/messages`);
+    const result = response.data;
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};

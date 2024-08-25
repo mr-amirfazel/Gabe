@@ -16,7 +16,7 @@ export const Main:FC = () => {
         <div
         className={classNames(
           messages.roomId ? "flex" : "hidden",
-          "sm:flex sm:flex-1 flex-col  flex-[1_1_auto]"
+          "sm:flex sm:flex-1 flex-col  flex-[1_1_auto] h-full"
         )}
       >
         <div className="flex flex-col h-full">
