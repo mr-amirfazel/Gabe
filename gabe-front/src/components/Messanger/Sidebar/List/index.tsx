@@ -26,7 +26,7 @@ export const List = <T extends ListItem>({ listData, itemViewer: ItemViewer }: L
         </div>
         )
     
-    return listData.length === 0 ? (
+    return listData?.length === 0 ? (
         <div className="h-full w-full text-center flex justify-center items-center font-bold">
             Nothing was found here.
             <br/>
@@ -34,7 +34,7 @@ export const List = <T extends ListItem>({ listData, itemViewer: ItemViewer }: L
         </div>
     ) : (
         <div className="overflow-auto">
-            {listData.map((item, index) => (
+            {listData?.map((item, index) => (
                 <ItemViewer key={index} item={item} />
             ))}
         </div>
