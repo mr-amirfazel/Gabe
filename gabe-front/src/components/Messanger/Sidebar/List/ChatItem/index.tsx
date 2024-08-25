@@ -4,6 +4,7 @@ import { AppContext } from "../../../../../context/store";
 import { MessageActionTypes } from "../../../../../@types/context/context.types";
 import { messagesConstant } from "../../../../../constants/messages";
 import { GrStatusGoodSmall } from "react-icons/gr";
+import { fetchMessages } from "../../../../../actions/sidebar.actions";
 
 // Define the props type for the ChatItem component
 export interface ChatItemComponentProps {
@@ -16,26 +17,9 @@ export const ChatItem: FC<ChatItemComponentProps> = ({ item }) => {
     dispatch,
   } = useContext(AppContext);
 
-  const handleMessageFetch = () => {
-    // Perform operations such as fetching data and dispatching actions
-    // (The API call is commented out as per your example)
-
-    console.log(messagesConstant.filter((msg) => msg.roomId === item.roomId));
-    dispatch({
-      type: MessageActionTypes.Get_Current_Messages,
-      payload: {
-        roomId: item.roomId,
-        MessageList: messagesConstant.filter((msg) => msg.roomId === item.roomId)[0]?.MessageList || [],
-        header: {
-          name: item.name,
-          situation: item.user_status,
-        },
-      },
-    });
-  };
 
   return (
-    <div onClick={handleMessageFetch} >
+    <div onClick={() => {fetchMessages(dispatch, item)}} >
       <div className="rounded-md flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
         <div className="w-full">
           <div className="flex justify-between items-center">

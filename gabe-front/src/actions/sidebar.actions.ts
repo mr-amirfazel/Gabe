@@ -1,3 +1,5 @@
+import { MessageActionTypes } from "../@types/context/context.types";
+import { ChatItemProps } from "../@types/Sidebar.types";
 import { createChatService, getAllMessages, sendMessage } from "../services/chat.service"
 
 // contact functions
@@ -23,8 +25,19 @@ export const createMessage = async (chatId: string, message: any) => {
     return result;
 }
 
-export const fetchMessages = async (chaId: string) => {
-    const messages = await getAllMessages(chaId);
-    return messages;
+export const fetchMessages = async (dispatch:any, chatroom: ChatItemProps) => {
+    const messages = await getAllMessages(chatroom.roomId);
+    
+    dispatch({
+        type: MessageActionTypes.Get_Current_Messages,
+        payload: {
+          roomId: chatroom.roomId,
+          MessageList: messages,
+          header: {
+            name: chatroom.name,
+            situation: chatroom.user_status,
+          },
+        },
+      });
 
 }

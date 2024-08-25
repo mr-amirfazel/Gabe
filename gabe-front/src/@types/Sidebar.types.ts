@@ -7,7 +7,7 @@ export type ChatItemProps = {
     last_message?: string,
     user_status?: boolean,
     unseen_messages: number,
-    roomId: number
+    roomId: string
 }
 
 export type ContactItemProps = {

@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { ContactModule } from './contact/contact.module';
 import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     ContactModule,
     ChatModule,
-    AuthModule
+    AuthModule,
+    SocketModule
   ],
   controllers: [AppController],
   providers: [AppService],
