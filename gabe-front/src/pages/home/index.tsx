@@ -3,11 +3,9 @@ import { Messanger } from "../../components/Messanger";
 import { getUserByUsername } from "../../services/user.service";
 import { AppContext } from "../../context/store";
 import { UserActionTypes } from "../../@types/context/context.types";
-
 export const Home:FC = () => {
 
     const { _ , dispatch}  = useContext(AppContext);
-
     useEffect(()=> {
         const username = sessionStorage.getItem("gabe-username");
         if(username){
