@@ -51,6 +51,7 @@ export enum MessageActionTypes {
 export type MessageHedar = {
   name: string;
   situation: "online" | "offline";
+  image: string;
 };
 export type MessageState = {
   header: MessageHedar;

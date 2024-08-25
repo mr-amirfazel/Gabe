@@ -18,7 +18,8 @@ const IntialState: ContextAppState = {
   messages: {
     header : {
       name : "",
-      situation : "offline"
+      situation : "offline",
+      image: ""
     },
     MessageList: [],
     roomId: "",

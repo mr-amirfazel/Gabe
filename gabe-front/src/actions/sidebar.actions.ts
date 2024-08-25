@@ -37,6 +37,7 @@ export const fetchMessages = async (dispatch:any, chatroom: ChatItemProps, userI
           header: {
             name: chatroom.name,
             situation: chatroom.user_status,
+            image: chatroom.image
           },
         },
       });
