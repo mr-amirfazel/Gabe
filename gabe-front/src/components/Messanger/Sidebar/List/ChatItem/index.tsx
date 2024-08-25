@@ -1,10 +1,9 @@
 import { FC, useContext } from "react";
 import { ChatItemProps } from "../../../../../@types/Sidebar.types";
 import { AppContext } from "../../../../../context/store";
-import { MessageActionTypes } from "../../../../../@types/context/context.types";
-import { messagesConstant } from "../../../../../constants/messages";
 import { GrStatusGoodSmall } from "react-icons/gr";
 import { fetchMessages } from "../../../../../actions/sidebar.actions";
+import useSocket from "../../../../../hooks/useSocket";
 
 // Define the props type for the ChatItem component
 export interface ChatItemComponentProps {
@@ -12,14 +11,22 @@ export interface ChatItemComponentProps {
 }
 
 export const ChatItem: FC<ChatItemComponentProps> = ({ item }) => {
+
+  const { joinRoom } = useSocket("http://localhost:3000");
+
   const {
-    state: { messages },
+    state: { user },
     dispatch,
   } = useContext(AppContext);
 
+  const joinToRoom = () => {
+    joinRoom(item.roomId);
+    fetchMessages(dispatch, item, user.id);
+  }
+
 
   return (
-    <div onClick={() => {fetchMessages(dispatch, item)}} >
+    <div onClick={joinToRoom} >
       <div className="rounded-md flex flex-row-reverse cursor-pointer ease-in duration-200 hover:bg-blue-300 p-2">
         <div className="w-full">
           <div className="flex justify-between items-center">

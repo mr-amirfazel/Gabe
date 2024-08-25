@@ -47,7 +47,7 @@ export const ChatMessage: React.FunctionComponent<ChatMessageProps> = (
       {messages.MessageList.map((item) => (
         <MessageItem
           key={item.id}
-          type={item.isSentByOwner ? "sender" : "reciever"}
+          type={item.isSentByOwner ? "reciever" : "sender"}
           text={item.value}
           id={item.id}
         />

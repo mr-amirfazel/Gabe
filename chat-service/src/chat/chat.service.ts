@@ -63,7 +63,7 @@ export class ChatService {
     this.logger.log('Creating a new message');
     const message = { ...createMessageDto, createdAt: new Date(), messageId: new ObjectId().toHexString(), chatId: new ObjectId(chatId) };
     const result = await this.db.collection('messages').insertOne(message);
-    return result.insertedId;
+    return result.insertedId ? message : null;
   }
 
   async getMessages(chatId: string) {

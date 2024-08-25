@@ -59,7 +59,10 @@ export type MessageState = {
 };
 
 export type MessageItems = {
+  senderId: string;
   isSentByOwner: boolean;
   value: string;
   id: number;
+  sentAt: string;
+  roomId: string;
 };

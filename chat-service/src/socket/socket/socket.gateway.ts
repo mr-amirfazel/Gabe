@@ -3,6 +3,7 @@ import { SubscribeMessage, WebSocketGateway, WebSocketServer, OnGatewayConnectio
 import { Server, Socket } from 'socket.io';
 import { ChatService } from 'src/chat/chat.service';
 import { Types } from 'mongoose';
+import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({ cors: true })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -13,6 +14,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   // When a client connects, we add them to a specific chat room
   @SubscribeMessage('joinRoom')
   handleJoinRoom(client: Socket, chatId: string): void {
+    Logger.log("client joined to", chatId, typeof(chatId))
     client.join(chatId);
     client.emit('joinedRoom', chatId);  // Send an acknowledgment to the client
   }
@@ -27,7 +29,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     
     // Save the message to the database
     const savedMessage = await this.chatService.createMessage(newMessage, chatId);
-
+    Logger.log('new message', savedMessage)
     // Emit the saved message to the specific chat room
     this.server.to(chatId).emit('receiveMessage', savedMessage);
   }

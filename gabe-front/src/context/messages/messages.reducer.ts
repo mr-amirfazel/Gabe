@@ -15,7 +15,8 @@ import {
         state.header = action.payload.header;
         return state;
       case MessageActionTypes.Send_New_Message:
-        state.MessageList.push(action.payload);
+        // state.MessageList.push(action.payload);
+        state.MessageList = action.payload
         return state;
       case MessageActionTypes.Remove_Message:
         state.MessageList = state.MessageList.filter(
