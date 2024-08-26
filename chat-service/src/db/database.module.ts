@@ -9,10 +9,10 @@ import { MongoClient, Db } from 'mongodb';
       provide: 'DATABASE_CONNECTION',
       useFactory: async (): Promise<Db> => {
         const client = new MongoClient(
-          'mongodb+srv://fazel:gabeAuth@gabe.uomwmlz.mongodb.net/gabe?retryWrites=true&w=majority&appName=gabe'
+          process.env.DATABSE_URI
         );
         await client.connect();
-        return client.db('gabe');
+        return client.db(process.env.DATABASE_NAME);
       },
     },
   ],

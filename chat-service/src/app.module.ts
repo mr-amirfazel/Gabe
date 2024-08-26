@@ -8,10 +8,11 @@ import { ContactModule } from './contact/contact.module';
 import { ChatModule } from './chat/chat.module';
 import { AuthModule } from './auth/auth.module';
 import { SocketModule } from './socket/socket.module';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://fazel:gabeAuth@gabe.uomwmlz.mongodb.net/gabe?retryWrites=true&w=majority&appName=gabe'),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.DATABSE_URI),
     UserModule,
     ContactModule,
     ChatModule,

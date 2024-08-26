@@ -7,9 +7,9 @@ import (
 )
 
 	// generateJWTToken generates a JWT token for the user ID
-func GenerateJWTToken(userID primitive.ObjectID, username string) string {
+func GenerateJWTToken(userID primitive.ObjectID, username string, key string) string {
 	// Your secret key for signing the token
-	secretKey := "2x_Pud8W1ODk4qIffFlE0U8awL-pce3OiT-c2OTWYp0"
+	// secretKey := "2x_Pud8W1ODk4qIffFlE0U8awL-pce3OiT-c2OTWYp0"
 	
 		// Create the token
 		token := jwt.New(jwt.SigningMethodHS256)
@@ -19,7 +19,7 @@ func GenerateJWTToken(userID primitive.ObjectID, username string) string {
 		claims["exp"] = time.Now().Add(time.Hour * 24).Unix() // Example: Token expires in 24 hours
 	
 		// Sign the token with your secret key
-		tokenString, err := token.SignedString([]byte(secretKey))
+		tokenString, err := token.SignedString([]byte(key))
 		if err != nil {
 			// Handle error (e.g., log it)
 			return ""

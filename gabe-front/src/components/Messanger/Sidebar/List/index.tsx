@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ComponentType, FC, useContext } from "react";
+import { FC, useContext } from "react";
 import { ChatItemProps, ContactItemProps, UserItemProps } from "../../../../@types/Sidebar.types";
 import { AppContext } from "../../../../context/store";
+import { Bars } from "react-loader-spinner";
+import { Tooltip } from "@mui/material";
 
 
 type ListItem = ChatItemProps | ContactItemProps | UserItemProps;
@@ -22,11 +24,24 @@ export const List = <T extends ListItem>({ listData, itemViewer: ItemViewer }: L
     if (list.listLoading)
         return(
         <div className="h-full w-full text-center flex justify-center items-center font-bold">
-            Loading....
+            <Tooltip title= {`fetching ${list.listType} List data`}>
+                <div>
+                    <Bars
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="bars-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+                </div>
+            </Tooltip>
         </div>
+        
         )
     
-    return listData?.length === 0 ? (
+    return listData.length === 0 ? (
         <div className="h-full w-full text-center flex justify-center items-center font-bold">
             Nothing was found here.
             <br/>
@@ -34,7 +49,7 @@ export const List = <T extends ListItem>({ listData, itemViewer: ItemViewer }: L
         </div>
     ) : (
         <div className="overflow-auto">
-            {listData?.map((item, index) => (
+            {listData.map((item, index) => (
                 <ItemViewer key={index} item={item} />
             ))}
         </div>

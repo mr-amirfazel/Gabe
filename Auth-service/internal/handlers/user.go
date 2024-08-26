@@ -75,7 +75,7 @@ func Register(c echo.Context) error {
 }
 
 
-func Login(c echo.Context) error {
+func Login(c echo.Context, jwtKey string) error {
 		// Parse request body
 		var loginUser models.User
 		if err := c.Bind(&loginUser); err != nil {
@@ -97,7 +97,7 @@ func Login(c echo.Context) error {
 		}
 	
 		// Generate JWT token
-		token := utils.GenerateJWTToken(storedUser.ID, storedUser.Username)
+		token := utils.GenerateJWTToken(storedUser.ID, storedUser.Username, jwtKey)
 	
 		// Set token in response header or cookie as needed
 		c.Response().Header().Set("Authorization", "Bearer "+token)

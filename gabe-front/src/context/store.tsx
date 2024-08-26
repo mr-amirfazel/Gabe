@@ -25,6 +25,7 @@ const IntialState: ContextAppState = {
     roomId: "",
   },
   user: {
+    isLoading: false,
     token: "",
     username: "",
     image: "",

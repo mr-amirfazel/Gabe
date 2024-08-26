@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useContext, useEffect, useState } from "react";
 import { Searchbar } from "./Search";
@@ -8,6 +9,8 @@ import { ChatItem } from "./List/ChatItem";
 import { ContactItem } from "./List/ContactItem";
 import { UserItem } from "./List/UserItem";
 import { AppContext } from "../../../context/store";
+import { Tooltip } from "@mui/material";
+import {Grid} from 'react-loader-spinner'
 
 // Define the list_data as an empty array for now
 const list_data: ChatItemProps[] | ContactItemProps[] | UserItemProps[] = [
@@ -28,7 +31,7 @@ export const Sidebar: FC = () => {
 });
 
   const {
-    state: { list }
+    state: { list, user }
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -51,6 +54,25 @@ export const Sidebar: FC = () => {
     }
   }, [list.listType]);
 
+  if (user.isLoading) return (
+  <div className="h-full w-full text-center flex justify-center items-center font-bold">
+    <Tooltip title="fetching app data">
+      <div>
+        <Grid
+        visible={true}
+        height="80"
+        width="80"
+        color="#4fa94d"
+        ariaLabel="grid-loading"
+        radius="12.5"
+        wrapperStyle={{}}
+        wrapperClass="grid-wrapper"
+      />
+      </div>
+  </Tooltip>
+  </div>
+  
+)
   return (
     <div className="w-[95%] flex flex-col h-full gap-3">
       <Searchbar onChange={setSearch} />

@@ -7,6 +7,9 @@ export const UserReducer = (
   action: ContextAction<UserActionTypes, any>
 ): UserAppState => {
     switch (action.type) {
+        case UserActionTypes.Login_Loading:
+          state.isLoading = action.payload;
+          return state;
         case UserActionTypes.Login_Success:
           state.username = action.payload?.user?.username;
           state.token = action.payload?.user?.token;

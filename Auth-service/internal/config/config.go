@@ -9,7 +9,8 @@ import (
 
 type (
 	Config struct{
-		Database db.Config 
+		Database db.Config
+		JWTKEY string
 	}
 )
 var config Config

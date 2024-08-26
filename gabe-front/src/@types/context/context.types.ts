@@ -12,6 +12,7 @@ export type ContextAction<T, K> = {
 };
 
 export type UserAppState = {
+  isLoading: boolean;
   username: string;
   token: string;
   image?: string;
@@ -23,6 +24,7 @@ export type UserAppState = {
 };
 
 export enum UserActionTypes {
+  Login_Loading = "Login_Loading",
   Login_Success = "Login_Success",
   Update_profile = "Update_profile",
 }
