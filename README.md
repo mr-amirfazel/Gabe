@@ -16,6 +16,11 @@
       - Socket.io ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
   - Auth method
       - JWT ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+## Screenshots
+![image](https://github.com/user-attachments/assets/80950ea4-0601-4124-a7f5-29591d4cba84)
+![image](https://github.com/user-attachments/assets/b07890b4-462e-4645-8207-2656e9f8cec5)
+![image](https://github.com/user-attachments/assets/eea629bf-4187-42c4-b2a7-1ad76a4e2cfa)
+
 ## How to Run
 ### Preapare config and .env files
   - #### AuthService:
