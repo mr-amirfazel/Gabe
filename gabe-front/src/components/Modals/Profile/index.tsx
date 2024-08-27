@@ -15,8 +15,7 @@ interface ProfileProps extends React.PropsWithChildren {
 
 export const Profile: FC<ProfileProps> = ({ onClose }) => {
   const {
-    state: { user },
-    _,
+    state: { user }
   } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true); // Set to true initially to show loading state
 

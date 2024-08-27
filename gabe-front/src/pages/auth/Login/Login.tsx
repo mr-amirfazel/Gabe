@@ -14,7 +14,7 @@ export const Login: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { _ },
+    formState: {  },
   } = useForm<LoginFormValues>();
   const {dispatch} = useContext(AppContext);
 

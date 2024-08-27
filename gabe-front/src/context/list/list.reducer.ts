@@ -11,9 +11,10 @@ import { ListState, ListActionTypes, ContextAction } from "../../@types/context/
         return state;
       case ListActionTypes.Search_Items:
         // eslint-disable-next-line no-case-declarations
-        const filterChats = state.itemList.filter((n) =>
-          n.username.includes(action.payload)
-        );
+        const filterChats = state.itemList
+        // .filter((n) =>
+        //   n?.username.includes(action.payload)
+        // );
         state.searchList = filterChats;
         return state;
       case ListActionTypes.Set_List_Type:

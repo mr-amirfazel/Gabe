@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  golang-app:
+    build: ./Auth-service
+    ports:
+      - "8080:8080"
+
+  chat-service:
+    build: ./chat-service
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./Chat-service/.env
+
+  # react-app:
+  #   build: ./gabe-front
+  #   ports:
+  #     - "5173:5173"
